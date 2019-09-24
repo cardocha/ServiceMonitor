@@ -13,7 +13,9 @@ JAVA 8+ / Maven 3.6.1+
 
 ### Dependencies
 https://github.com/JodaOrg/joda-time
+
 https://github.com/google/guava
+
 https://github.com/mabe02/lanterna
 
 ## Authors
