@@ -1,7 +1,7 @@
 # Service Monitor
-A simple web service monitor mader with JAVA.
+A simple web service monitor made with JAVA.
 
-This project is a possible solution for this Technical Assignment
+This project is a possible solution for this technical assignment
 
 Problem:
 Design and implement (in java) a service monitoring class. This monitor will be
