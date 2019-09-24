@@ -37,8 +37,10 @@
             <artifactId>guava</artifactId>
             <version>27.1-jre</version>
         </dependency>
-
+        <dependency>
+            <groupId>com.googlecode.lanterna</groupId>
+            <artifactId>lanterna</artifactId>
+            <version>3.0.1</version>
+        </dependency>
     </dependencies>
-
-
 </project>
