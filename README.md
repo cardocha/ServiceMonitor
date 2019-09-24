@@ -26,9 +26,10 @@ time to expire before notifying any clients. If the service goes back on line du
 this grace time, no notification will be sent. If the grace time is less than the
 polling frequency, the monitor should schedule extra checks of the service.
 
+Source concepts
 ```java
-    @Test
-    public void monitorMustSupportMultipleServiceChecksTest() throws InterruptedException {
+@Test
+public void monitorMustSupportMultipleServiceChecksTest() throws InterruptedException {
         final ServiceCheck serviceCheck1 = new ServiceCheck(new Service("http://www.google.com", 80), 5);
         final ServiceCheck serviceCheck2 = new ServiceCheck(new Service("http://stackoverflow.com/", 80), 6);
         final ServiceCheck serviceCheck3 = new ServiceCheck(new Service("http://gmail.com/", 80), 3);
@@ -45,6 +46,7 @@ polling frequency, the monitor should schedule extra checks of the service.
         assertFalse(monitor.getMessagesFromServiceCheck(serviceCheck2).isEmpty());
         assertFalse(monitor.getMessagesFromServiceCheck(serviceCheck3).isEmpty());
   }
+ ```
 
 
 Class Diagram used in this solution.
