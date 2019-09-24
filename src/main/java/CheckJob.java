@@ -8,14 +8,6 @@ public abstract class CheckJob extends Thread {
         this.stop = false;
     }
 
-    public void stopJob() {
-        this.stop = true;
-    }
-
-    public void setPauseCheck(boolean pauseCheck) {
-        this.pauseCheck = pauseCheck;
-    }
-
     abstract ServiceCheck getServiceCheck();
 
     abstract void performCheck();

@@ -1,8 +1,6 @@
 import java.util.ArrayList;
 import java.util.List;
 
-import static com.google.common.collect.Iterables.getLast;
-
 public class Monitor {
 
     private List<ServiceCheck> serviceChecks;
@@ -29,16 +27,6 @@ public class Monitor {
         }
 
         return null;
-    }
-
-    public List<String> getServiceCheckLastMessages() {
-        final List<String> lastMessages = new ArrayList<>();
-
-        for (ServiceCheck serviceCheck : this.getServiceChecks()) {
-            lastMessages.add(getLast(serviceCheck.getMessages()));
-        }
-
-        return lastMessages;
     }
 
     public void start() {

@@ -1,5 +1,3 @@
-import org.joda.time.DateTime;
-
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
@@ -22,10 +20,6 @@ public class Service {
 
     int getPort() {
         return port;
-    }
-
-    void addPlanedOutage(DateTime start, DateTime end) {
-        this.planedOutages.add(new PlanedOutage(start, end));
     }
 
     void addPlanedOutage(PlanedOutage planedOutage) {
