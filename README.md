@@ -27,7 +27,12 @@ this grace time, no notification will be sent. If the grace time is less than th
 polling frequency, the monitor should schedule extra checks of the service.
 
 
-![alt text](https://a.fsdn.com/con/app/proj/justplaymp3/screenshots/Mp3Player.png/1)
+Class Diagram used in this solution.
+![alt text](https://raw.githubusercontent.com/cardocha/ServiceMonitor/master/src/main/resources/classDiagram.png)
+
+
+User Interface Prototype implemented for future improvements.
+![alt text](https://raw.githubusercontent.com/cardocha/ServiceMonitor/master/src/main/resources/ui_screenshot.png)
 
 
 ## Getting Started
