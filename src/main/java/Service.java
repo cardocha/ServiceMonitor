@@ -27,11 +27,8 @@ public class Service {
     }
 
     boolean isInAPlanedOutage() {
-        for (PlanedOutage planedOutage : this.planedOutages) {
-            if (planedOutage.getStart().isBeforeNow() && planedOutage.getEnd().isAfterNow())
-                return true;
-        }
-        return false;
+        return this.planedOutages.stream()
+                .anyMatch(planedOutage -> planedOutage.getStart().isBeforeNow() && planedOutage.getEnd().isAfterNow());
     }
 
     @Override

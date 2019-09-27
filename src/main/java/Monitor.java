@@ -1,45 +1,52 @@
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
+import java.util.concurrent.atomic.AtomicInteger;
 
-public class Monitor {
+class Monitor {
 
-    private List<ServiceCheck> serviceChecks;
-    private int graceTime;
+	private List<ServiceCheck> serviceChecks;
+	private int graceTime;
 
-    public Monitor(int graceTime) {
-        this.serviceChecks = new ArrayList<>();
-        this.graceTime = graceTime;
-    }
+	Monitor(int graceTime) {
+		this.serviceChecks = new ArrayList<>();
+		this.graceTime = graceTime;
+	}
 
-    public List<ServiceCheck> getServiceChecks() {
-        return serviceChecks;
-    }
+	List<ServiceCheck> getServiceChecks() {
+		return serviceChecks;
+	}
 
-    public void addServiceCheck(ServiceCheck serviceCheck) {
-        serviceCheck.setGraceTime(this.graceTime);
-        this.serviceChecks.add(serviceCheck);
-    }
+	void addServiceCheck(ServiceCheck serviceCheck) {
+		serviceCheck.setGraceTime(this.graceTime);
+		this.serviceChecks.add(serviceCheck);
+	}
 
-    public List<String> getMessagesFromServiceCheck(ServiceCheck serviceCheckSelected) {
-        for (ServiceCheck serviceCheck : this.serviceChecks) {
-            if (serviceCheck == serviceCheckSelected)
-                return serviceCheck.getMessages();
-        }
+	List<String> getMessagesFromServiceCheck(ServiceCheck serviceCheckSelected) {
+		return Objects.requireNonNull(
+				this.serviceChecks.stream()
+						.filter(serviceCheck -> serviceCheck == serviceCheckSelected)
+						.findAny()
+						.orElse(null)
+		).getMessages();
+	}
 
-        return null;
-    }
+	void waitOneSecondToStartIfNeeded(ServiceCheck current, int indice) {
+		if (indice > 0) {
+			final ServiceCheck previous = this.serviceChecks.get(indice - 1);
+			if (current.getService().equals(previous.getService()))
+				TimeUtil.waitOneSecond();
+		}
+	}
 
-    public void start() {
-        for (int i = 0; i < this.serviceChecks.size(); i++) {
-            final ServiceCheck current = this.serviceChecks.get(i);
-            if (i > 0) {
-                final ServiceCheck previous = this.serviceChecks.get(i - 1);
-                if (current.getService().equals(previous.getService()))
-                    TimeUtil.waitOneSecond();
-            }
-
-            current.start();
-        }
-    }
+	void start() {
+		AtomicInteger index = new AtomicInteger();
+		this.serviceChecks.forEach(serviceCheck -> {
+			final int currentIndex = index.getAndIncrement();
+			final ServiceCheck current = this.serviceChecks.get(currentIndex);
+			waitOneSecondToStartIfNeeded(current, currentIndex);
+			current.start();
+		});
+	}
 
 }
